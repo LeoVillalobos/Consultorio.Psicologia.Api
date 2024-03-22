@@ -6,7 +6,7 @@ import { authenticateToken } from '../security'
 const router = express.Router()
 
 router.get('/', authenticateToken, (_req, res) => {
-
+  console.log("hola")
   res.send(diaryServices.getEntriesWithOutSensitiveInfo())
 })
 // authenticateToken

@@ -4,9 +4,12 @@ import jwt, { VerifyErrors, JsonWebTokenError, TokenExpiredError } from 'jsonweb
 
 const authenticateToken = (req: AuthRequest, res: Response, next: NextFunction) => {
   const token = req.header('Authorization');
+
   if (!token) return res.status(401).send('Acceso denegado.');
 
   const tokenWithoutBearer = token.startsWith('Bearer ') ? token.slice(7) : token;
+
+  console.log("tokenWithoutBearer", tokenWithoutBearer);
 
   const a = jwt.verify(tokenWithoutBearer, 'mySecretKey123' || '', (err: VerifyErrors | null, user: User | undefined) => {
     if (err) {
