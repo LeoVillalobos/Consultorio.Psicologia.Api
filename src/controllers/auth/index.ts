@@ -2,7 +2,7 @@
 import { User } from '../../security/index';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { Request, Response } from 'express';
+import { Request } from 'express'; //Response
 
 let users: User[] = [{
   username: 'leo',
@@ -15,25 +15,25 @@ export class AuthController {
     // this.movieModel = movieModel
   }
 
-  login = async (req: Request, res: Response) => {
+  login = async (req: Request, res: any) => {
     const user = users.find(u => u.username === req.body.username);
     if (user == null) {
-      return res.status(400).send('Usuario no encontrado.');
+      return res.error(400, 'Usuario no encontrado.');
     }
 
     try {
       if (await bcrypt.compare(req.body.password, user.password)) {
         const accessToken = jwt.sign(user, 'mySecretKey123', { expiresIn: '15m' });
-        return res.json({ accessToken });
+        return res.send({ accessToken });
       } else {
-        return res.status(401).send('Credenciales incorrectas.');
+        return res.error(401, 'Credenciales incorrectas.');
       }
     } catch {
-      return res.status(500).send('Error en la autenticación.');
+      return res.error(500, 'Error en la autenticación.');
     }
-  }
+  };
 
-  register = async (req: Request, res: Response) => {
+  register = async (req: Request, res: any) => {
     try {
       console.log("e", req.body.password);
       console.log("e", req.body.username);
