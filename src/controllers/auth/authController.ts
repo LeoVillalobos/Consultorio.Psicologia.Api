@@ -1,15 +1,8 @@
-// import { validateMovie, validatePartialMovie } from '../schemas/movies.js'
-// import { User } from '../../security/index';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Request, Response } from 'express';
 import { UserQueryService } from '../../database/auth/index';
 import { IUserRequest } from '../../model/auth';
-
-// let users: User[] = [{
-//   username: 'leo',
-//   password: '$2b$10$7dHpsV2.f1t2i/b1asINRuOW2tFH0Ug.aBM65zyfb/6.NwTUqnLPu'
-// }]; // Almacén temporal de usuarios
 
 
 export class AuthController {

@@ -26,9 +26,9 @@ export class UserQueryService {
         contrasenia: hashedPassword,
         correoElectronico: user.correoElectronico,
         fk_persona_id: user.personaId,
-        // createdAt: new Date(), // Puedes establecer la fecha de creación aquí si es necesario
-        // createdBy: 'Sistema', // Puedes establecer el creador aquí si es necesario
-        // createdOn: new Date(), // Puedes establecer la fecha de creación aquí si es necesario
+        createdAt: new Date(), // Puedes establecer la fecha de creación aquí si es necesario
+        createdBy: 'Sistema', // Puedes establecer el creador aquí si es necesario
+        createdOn: new Date(), // Puedes establecer la fecha de creación aquí si es necesario
       });
 
       return nuevoUsuario;

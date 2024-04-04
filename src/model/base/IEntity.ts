@@ -9,7 +9,7 @@ export interface IEntity {
  *
  */
 export interface IAuditable extends IEntity {
-  createdAt: string;
+  createdAt: Date;
   createdBy: string;
   createdOn: Date;
 }

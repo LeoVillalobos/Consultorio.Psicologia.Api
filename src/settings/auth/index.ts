@@ -42,6 +42,7 @@ User.init(
     nombreUsuario: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'nombre_usuario',
     },
     contrasenia: {
       type: DataTypes.TEXT,
@@ -50,6 +51,7 @@ User.init(
     correoElectronico: {
       type: DataTypes.STRING,
       allowNull: false,
+      field: 'correo_electronico',
     },
     fk_persona_id: {
       type: DataTypes.UUID, // Suponiendo que fk_persona_id es un UUID
