@@ -1,4 +1,4 @@
-import IEntity from "../base/IEntity";
+import type { IEntity } from "../base/IEntity";
 import { Model } from 'sequelize';
 
 

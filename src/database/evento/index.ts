@@ -1,5 +1,5 @@
-import { Evento, type IEventoDTO, entityToDto  } from '../../settings/evento';
-
+import { Evento, entityToDto  } from '../../settings/evento';
+import { type IEventoDTO } from '../../model/evento/index';
 
 export class EventoQueryService {
 

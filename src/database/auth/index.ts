@@ -1,31 +1,41 @@
-import { connection } from '../../database';
-
+import { IUserDTO, IUserRequest } from '../../model/auth';
+import User, { entityToDto } from '../../settings/auth/index';
+import bcrypt from 'bcrypt';
 
 export class UserQueryService {
-  static async getUserByUsername(username: string) {
+  static async getUserByUsername(username: string): Promise<IUserDTO> {
     try {
-      const rows = await connection.query('SELECT * FROM users WHERE username = ?', [username]);
-      return rows[0];
+
+      const response = await User.findOne({ where: { nombreUsuario: username } });
+
+      return entityToDto(response);
+
     } catch (error) {
       console.error('Error getting user by username:', error);
       throw error;
     }
   }
 
-  static async createUser(username: string, password: string) {
+  static async createUser(user: IUserRequest): Promise<User> {
     try {
-      await connection.query('INSERT INTO users (username, password) VALUES (?, ?)', [username, password]);
+
+      const hashedPassword = await bcrypt.hash(user.contrasenia, 10);
+
+      const nuevoUsuario = await User.create({
+        nombreUsuario: user.nombreUsuario,
+        contrasenia: hashedPassword,
+        correoElectronico: user.correoElectronico,
+        fk_persona_id: user.personaId,
+        // createdAt: new Date(), // Puedes establecer la fecha de creación aquí si es necesario
+        // createdBy: 'Sistema', // Puedes establecer el creador aquí si es necesario
+        // createdOn: new Date(), // Puedes establecer la fecha de creación aquí si es necesario
+      });
+
+      return nuevoUsuario;
+
     } catch (error) {
       console.error('Error creating user:', error);
       throw error;
     }
   }
-
-  // static async delete ({ id }) {
-  //   // ejercio fácil: crear el delete
-  // }
-
-  // static async update ({ id, input }) {
-  //   // ejercicio fácil: crear el update
-  // }
 }

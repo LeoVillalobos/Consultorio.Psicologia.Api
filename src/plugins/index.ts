@@ -6,12 +6,10 @@ import { handleResponse } from '../middlewares/handleResponse';
 
 
 export const registerPlugins = (app: Express) => {
-
   app
     .use(json())
     .use(bodyParser.json())
     .use(corsMiddleware())
     .use(handleResponse)
-    .disable('x-powered-by')
-
+    .disable('x-powered-by');
 }
