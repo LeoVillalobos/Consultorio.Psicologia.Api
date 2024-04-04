@@ -1,16 +1,15 @@
-import Evento from '../../model/evento/index';
+import { Evento, type IEventoDTO, entityToDto  } from '../../settings/evento';
 
 
 export class EventoQueryService {
 
-  static async getById(id: string): Promise<Evento> {
+  static async getById(id: string): Promise<IEventoDTO> {
     try {
 
-      const response = await Evento.findByPk(id, {
-        attributes: ['id', 'nombreEvento'],
-      });
+      const response = await Evento.findByPk(id);
 
-      return response;
+       // Mapear los eventos a DTOs
+      return entityToDto(response);
 
     } catch (error) {
       console.error('Error getting person by id:', error);

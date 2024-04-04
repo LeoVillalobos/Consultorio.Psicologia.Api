@@ -1,8 +1,44 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../../database/sequelize';
+import IEntity from "../base/IEntity";
+import { Model } from 'sequelize';
 
-interface IEventoAttributes {
-  id: string;
+
+/**
+ *
+ * En TypeScript, puede agregar información escrita
+ * sin agregar un campo de clase pública real usando
+ * la declarepalabra clave: declare
+ */
+class Evento extends Model<IEventoEntity> {
+  declare id: string;
+  declare nombreEvento: string;
+  declare descripcion: string;
+  declare fechaInicio: Date;
+  declare fechaFin: Date;
+  declare lugar: string;
+  declare createdAt: Date;
+  declare createdBy: Date;
+  declare createdOn: Date;
+}
+
+/**
+ *
+ */
+interface IEventoEntity extends IEntity {
+  nombreEvento: string;
+  descripcion: string;
+  fechaInicio: Date;
+  fechaFin: Date;
+  lugar: string;
+  createdAt: Date;
+  createdBy: Date;
+  createdOn: Date;
+}
+
+/**
+ * DTO (Data Transfer Object)
+ *
+ */
+interface IEventoDTO {
   nombreEvento: string;
   descripcion: string;
   fechaInicio: Date;
@@ -10,45 +46,4 @@ interface IEventoAttributes {
   lugar: string;
 }
 
-class Evento extends Model<IEventoAttributes> {}
-
-Evento.init(
-  {
-    id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
-      primaryKey: true,
-    },
-    nombreEvento: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      field: 'nombre_evento',
-    },
-    descripcion: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-    fechaInicio: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'fecha_inicio',
-    },
-    fechaFin: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      field: 'fecha_fin',
-    },
-    lugar: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    sequelize,
-    modelName: 'Evento',
-    tableName: 'eventos', // Nombre de la tabla en la base de datos
-    timestamps: false, // Desactiva las columnas createdAt y updatedAt
-  }
-);
-
-export default Evento;
+export { Evento, IEventoDTO, IEventoEntity };
